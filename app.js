@@ -1,3 +1,4 @@
+const http = require('http');
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -11,6 +12,7 @@ const users = require('./routes/users');
 // Set up mongoose
 const mongoose = require('mongoose');
 // You need to connect to your MongoDB here
+mongoose.connect('mongod://localhost/tweeter-starter-app');
 
 const app = express();
 
@@ -28,6 +30,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+
+app.get('*', function(req,res,next) {
+  return res.render('index');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
