@@ -12,7 +12,8 @@ module.exports = {
   },
 
   show(req,res,next) {
-    let foundUser;
+
+    var foundUser;
 
     UserModel.findById(req.params.id).exec()
     .then(user => {
@@ -43,7 +44,7 @@ module.exports = {
       username: req.body.username,
       avatarUrl: req.body.avatarUrl,
       bio: req.body.bio,
-      tweet: req.body.tweet;
+      tweet: req.body.tweet
     });
     user.save((err, user) => {
       res.json(user);

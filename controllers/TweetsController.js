@@ -23,13 +23,13 @@ module.exports = {
     });
   },
 
-  edit: function(req.res) {
+  edit: function(req,res) {
     TweetModel.findOne({ _id: req.params.id }).exec()
       .then(user => {
         return res.json(user);
       })
       .catch(err => {
-        return next (err)l
+        return next (err);
       });
   },
 

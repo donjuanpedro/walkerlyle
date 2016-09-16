@@ -14,4 +14,4 @@ const tweetSchema = new Schema({
   }
 });
 
-mongoose.model('Tweet', tweetSchema);
+module.exports = mongoose.model('Tweet', tweetSchema);

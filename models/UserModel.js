@@ -9,12 +9,12 @@ const userSchema = new Schema({
   avatarUrl: {
     type: String,
     required: true
-  }
+  },
   bio: {
     type: String,
     required: true
-  }
+  },
   tweets: Array
 });
 
-mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);

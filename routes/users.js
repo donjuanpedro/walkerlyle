@@ -1,20 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const router = express.Router();
-const UserModel = require('..models/UserModel.js');
+const userRouter = express.Router();
 const UsersController = require('../controllers/UsersController');
 
 /* GET users listing. */
-router.get('/', UsersController.list);
+userRouter.get('/', UsersController.list);
 
-router.get('/:id', UsersController.show);
+userRouter.get('/:id', UsersController.show);
 
-router.get('/:id/edit', UsersController.edit);
+userRouter.get('/:id/edit', UsersController.edit);
 
-router.post('/', UsersController.create);
+userRouter.post('/', UsersController.create);
 
-router.put('/:id', UsersController.update);
+userRouter.put('/:id', UsersController.update);
 
-router.delete('/:id', UsersController.remove);
+userRouter.delete('/:id', UsersController.remove);
 
-module.exports = router;
+module.exports = userRouter;
