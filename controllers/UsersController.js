@@ -2,27 +2,27 @@ const UserModel = require('../models/UserModel.js');
 
 module.exports = {
   list(req,res,next) {
-    UserModel.find().exec()
-    .then(users => {
-      res.json(200, users);
-    })
-    .catch(err => {
-      return next(err);
+    UserModel.find()
+      .populate('tweets')
+      .exec()
+      .then(users => {
+        return res.json(users);
+      })
+      .catch(err => {
+        return next(err);
     });
   },
-
-  show(req,res,next) {
-
-    var foundUser;
-
-    UserModel.findById(req.params.id).exec()
-    .then(user => {
-      foundUser = user;
-      return TweetModel.find({ user: user._id }).exec();
+  show(req, res, next) {
+    UserModel.FindById(req.params.id)
+    .populate({
+      path: 'tweets',
+      populate: {
+        'user'
+      }
     })
-    .then(tweets => {
-      foundUser.tweets = tweets;
-      return res.json(foundUser);
+    .exec()
+    .then(user => {
+      return res.json(user);
     })
     .catch(err => {
       return next(err);
