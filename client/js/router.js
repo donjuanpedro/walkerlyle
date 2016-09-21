@@ -29,6 +29,7 @@ const Router = Backbone.Router.extend({
 
 function setView(view) {
   const app = document.querySelector('#app');
+  app.innerHTML = '';
   app.appendChild(view.render().el);
 }
 

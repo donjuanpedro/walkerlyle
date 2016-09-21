@@ -2,9 +2,11 @@ const TweetModel = require('../models/TweetModel.js');
 
 module.exports = {
   list (req,res,next) {
-    TweetModel.find().exec()
-    .then(users => {
-      res.json(200, tweets);
+    TweetModel.find()
+    .populate('user')
+    .exec()
+    .then(tweets => {
+      return res.json(tweets);
     })
     .catch(err => {
       return next(err);
@@ -43,14 +45,19 @@ module.exports = {
     });
   },
 
-  update: function(req, res) {
-    var id = req.params.id;
-    TweetModel.findOne({_id: id}, function(err, tweet) {
+  update: function(req, res, next) {
+    TweetModel.findBuyId(req.params.id)
+    .exec()
+    .then(tweet => {
       tweet.body = req.body.body;
-      tweet.user = req.body.user;
-      tweet.save(function(err,user) {
-        res.json(tweet);
-      });
+      return tweet.save();
+    })
+    .then(tweet => {
+      TweetModel.populate(tweet, { path: 'user' });
+      return res.json(tweet);
+    })
+    .catch(err => {
+      return next(err);
     });
   },
 
@@ -59,6 +66,6 @@ module.exports = {
     TweetModel.findByIdAndRemove({_id: id}, function(err, tweet) {
       return res.json(tweet);
     });
-  },
+  }
 
 };

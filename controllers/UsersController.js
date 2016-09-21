@@ -16,9 +16,7 @@ module.exports = {
     UserModel.FindById(req.params.id)
     .populate({
       path: 'tweets',
-      populate: {
-        'user'
-      }
+      populate: 'user'
     })
     .exec()
     .then(user => {
