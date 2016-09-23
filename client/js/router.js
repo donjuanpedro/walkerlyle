@@ -3,8 +3,14 @@ const Backbone = require('backbone');
 const Router = Backbone.Router.extend({
   routes: {
     '': 'tweets'
-    '': 'users'
+    'user/:id': 'user'
   },
+
+  initialize() {
+    $('#nav').html(
+      new NavBarView().render().el
+    );
+  }
 
   tweets() {
     const TweetsCollection = require('./collections/TweetsCollection');
