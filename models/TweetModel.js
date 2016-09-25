@@ -14,4 +14,11 @@ const tweetSchema = new Schema({
   }
 });
 
+tweetSchema.set('toJSON', {
+  transform: function(doc, ret, options) {
+    delete ret.password;
+    return ret;
+  }
+});
+
 module.exports = mongoose.model('Tweet', tweetSchema);

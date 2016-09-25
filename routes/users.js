@@ -1,8 +1,13 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const userRouter = express.Router();
+const middleware = require('./middleware');
 const UsersController = require('../controllers/UsersController');
 
+userRouter.get('/', middleware.auth, function(req, res, next) {
+  userModel.findOne({ _id: req.user.id }, function(err, user) {
+    return res.json(user);
+  })
+});
 /* GET users listing. */
 userRouter.get('/', UsersController.list);
 

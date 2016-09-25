@@ -37,7 +37,7 @@ router.post('/register', function(req, res, next) {
       return res.redirect('/register');
     }
 
-    const salthRounds = 10;
+    const saltRounds = 10;
     bcryptjs.hash(req.body.password, saltRounds, function (err, hash) {
       user = new UserModel({
         username: req.body.username.toLowerCase(),

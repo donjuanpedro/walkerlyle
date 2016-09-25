@@ -11,6 +11,7 @@ const passport = require('./config/passport');
 const flash = require('express-flash');
 
 const routes = require('./routes/index');
+const middleware = require('./routes/middleware');
 const users = require('./routes/users');
 const tweets = require('./routes/tweets');
 
@@ -46,6 +47,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/tweets', tweets);
+app.get('/protected', middleware.auth, function(req, res, next) {
+  return res.json('I am a protected resource!');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

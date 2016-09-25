@@ -6,15 +6,27 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  avatarUrl: {
+  password: {
     type: String,
     required: true
+  },
+  avatarUrl: {
+    type: String,
+    required: false
   },
   bio: {
     type: String,
-    required: true
+    required: false
   },
-  tweets: Array
+  tweets: Array,
+  required: false
+});
+
+userSchema.set('toJSON', {
+  transform: function(doc, ret, options) {
+    delete ret.password;
+    return ret;
+  }
 });
 
 module.exports = mongoose.model('User', userSchema);
