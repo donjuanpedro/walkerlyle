@@ -30,21 +30,15 @@ const Router = Backbone.Router.extend({
 
   user(id) {
     const model = new UserModel({ _id: id });
-    const view = new UserView({ model });
+    const collection = new TweetsCollection();
+    const view = new UserView({ model, collection });
+    collection.url = `/users/${id}/tweets`;
+    collection.fetch();
     model.fetch();
 
     setView(view);
-  },
-
-  users() {
-    const UsersCollection = require('./collections/UsersCollection');
-    const UserView = require('./views/UserView');
-    const collection = new UsersCollection();
-    const view = UserListView({ collection });
-    collection.fetch();
-
-    setView(view);
   }
+
 });
 
 function setView(view) {

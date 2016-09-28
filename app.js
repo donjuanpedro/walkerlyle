@@ -14,9 +14,11 @@ const routes = require('./routes/index');
 const middleware = require('./routes/middleware');
 const users = require('./routes/users');
 const tweets = require('./routes/tweets');
+const usersTweets = require('./routes/users_tweets');
 
 // Set up mongoose
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 // You need to connect to your MongoDB here
 mongoose.connect('mongodb://localhost/tweeter-starter-app');
 
@@ -47,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/tweets', tweets);
+app.use('/users', usersTweets);
 app.get('/protected', middleware.auth, function(req, res, next) {
   return res.json('I am a protected resource!');
 });

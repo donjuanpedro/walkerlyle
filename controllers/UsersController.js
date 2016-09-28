@@ -3,7 +3,7 @@ const UserModel = require('../models/UserModel.js');
 module.exports = {
   list(req,res,next) {
     UserModel.find()
-      .populate('tweets')
+      // .populate('tweets')
       .exec()
       .then(users => {
         return res.json(users);
@@ -14,12 +14,7 @@ module.exports = {
   },
   show(req, res, next) {
     UserModel.FindById(req.params.id)
-    .populate({
-      path: 'tweets',
-      populate: {
-        path: 'user'
-      }
-    })
+    // .populate()
     .exec()
     .then(user => {
       return res.json(user);

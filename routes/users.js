@@ -1,22 +1,22 @@
 const express = require('express');
-const userRouter = express.Router();
+const router = express.Router();
 const middleware = require('./middleware');
 const UsersController = require('../controllers/UsersController');
 
-userRouter.get('/', middleware.auth, function(req, res, next) {
+router.get('/', middleware.auth, function(req, res, next) {
   userModel.findOne({ _id: req.user.id }, function(err, user) {
     return res.json(user);
   })
 });
 /* GET users listing. */
-userRouter.get('/', UsersController.list);
+router.get('/', UsersController.list);
 
-userRouter.get('/:id', UsersController.show);
+// router.get('/:id', UsersController.show);
 
-userRouter.post('/', UsersController.create);
+router.post('/', UsersController.create);
 
-userRouter.put('/:id', UsersController.update);
+// router.put('/:id', UsersController.update);
+//
+// router.delete('/:id', UsersController.remove);
 
-userRouter.delete('/:id', UsersController.remove);
-
-module.exports = userRouter;
+module.exports = router;

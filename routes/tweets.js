@@ -1,17 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const tweetRouter = express.Router();
+const router = express.Router();
 const TweetsController = require('../controllers/TweetsController');
 
 /* GET users listing. */
-tweetRouter.get('/', TweetsController.list);
+router.get('/', TweetsController.list);
 
-tweetRouter.get('/:id', TweetsController.show);
+// router.get('/:id', TweetsController.show);
 
-tweetRouter.post('/', TweetsController.create);
+router.post('/', TweetsController.create);
 
-tweetRouter.put('/:id', TweetsController.update);
+// router.put('/:id', TweetsController.update);
+//
+// router.delete('/:id', TweetsController.remove);
 
-tweetRouter.delete('/:id', TweetsController.remove);
-
-module.exports = tweetRouter;
+module.exports = router;

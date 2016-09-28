@@ -1,33 +1,41 @@
 const Backbone = require('backbone');
-const _ = require('lodash');
 const TweetItemView = require('./TweetItemView');
 
 const TweetListView = Backbone.View.extend({
-  el: `<ul></ul>`,
-
-  template: _.template(`
-    <form class="form-inline" action="/tweets" method="POST">
-        <div class="container-fluid">
-          <div class="row">
-           <div class="col-xs-12">
-            <div class="col-lg-12 form-group text-lef">
-              <input type="text" class="form-control" name="tweet" placeholder="New Tweet"/>
-            </div>
-            <div class="col-lg-12 form-group text-left">
-              <input type="file" name="profilePic" accept="image/*" />
-              <button type="submit" class="btn btn-default">Submit</button>
-            </div>
-           </div>
-          </div>
+  el: `<div>
+      <form action="/tweets" method="POST">
+        <div>
+          <label for="name">New Tweet</label>
+          <input type="text" name="name" />
+          <input type="submit" value="Post" />
         </div>
       </form>
       <ul></ul>
     </div>
-    `),
+  `,
 
   initialize() {
     this.listenTo(this.collection, 'update', this.render);
   },
+
+  events: {
+    'submit form': 'handleFormSubmit'
+  },
+
+  handleFormSubmit(e) {
+    const form = $(e.target);
+    const tweet = new TweetModel({
+      body: form.find('input[name="body"]').val(),
+    });
+    tweet.save(null, {
+      success: () => {
+        this.collection.add(tweet);
+        form.find('input[type="text"]').val('');
+        this.render();
+      }
+    });
+    e.preventDefault();
+  }
 
   render() {
     this.$el.html('');
