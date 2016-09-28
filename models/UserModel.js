@@ -18,8 +18,10 @@ const userSchema = new Schema({
     type: String,
     required: false
   },
-  tweets: Array,
-  required: false
+  tweets: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Tweet'
+  }]
 });
 
 userSchema.set('toJSON', {

@@ -25,16 +25,6 @@ module.exports = {
     });
   },
 
-  edit: function(req,res) {
-    TweetModel.findOne({ _id: req.params.id }).exec()
-      .then(user => {
-        return res.json(user);
-      })
-      .catch(err => {
-        return next (err);
-      });
-  },
-
   create: function(req,res) {
     const tweet = new TweetModel({
       body: req.body.body,
@@ -46,7 +36,7 @@ module.exports = {
   },
 
   update: function(req, res, next) {
-    TweetModel.findBuyId(req.params.id)
+    TweetModel.findById(req.params.id)
     .exec()
     .then(tweet => {
       tweet.body = req.body.body;

@@ -13,8 +13,6 @@ userRouter.get('/', UsersController.list);
 
 userRouter.get('/:id', UsersController.show);
 
-userRouter.get('/:id/edit', UsersController.edit);
-
 userRouter.post('/', UsersController.create);
 
 userRouter.put('/:id', UsersController.update);

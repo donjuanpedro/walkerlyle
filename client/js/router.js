@@ -1,43 +1,44 @@
 const Backbone = require('backbone');
 const UserModel = require('./models/UserModel');
-const UsersCollection = require('./collections/UsersCollection');
-const UserListView = require('./views/UserListView');
-const UserProfileView = require('./views/UserProfileView');
+const UserView = require('./views/UserView');
+const NavBarView = require('./views/NavBarView');
+
 
 let currentView;
 
 const Router = Backbone.Router.extend({
   routes: {
-    '/': 'tweets'
-    'users/:id': 'user'
-    '*users': 'users',
+    "": "tweets",
+    "user/:id": "user",
   },
 
   initialize() {
     $('#nav').html(
       new NavBarView().render().el
     );
-  }
+  },
 
   tweets() {
     const TweetsCollection = require('./collections/TweetsCollection');
-    // const TweetsListView = require('./views/TweetListView');
+    const TweetListView = require('./views/TweetListView');
     const collection = new TweetsCollection();
-    // const view = TweetsListView({ collection });
+    const view = TweetListView({ collection });
     collection.fetch();
 
     setView(view);
   },
 
   user(id) {
-    const user = new UserModel({_id: id});
-    const view = new UserProfileView({model: user});
+    const model = new UserModel({ _id: id });
+    const view = new UserView({ model });
+    model.fetch();
+
     setView(view);
   },
 
   users() {
     const UsersCollection = require('./collections/UsersCollection');
-    const UsersListView = require('./views/UserListView');
+    const UserView = require('./views/UserView');
     const collection = new UsersCollection();
     const view = UserListView({ collection });
     collection.fetch();
@@ -47,6 +48,11 @@ const Router = Backbone.Router.extend({
 });
 
 function setView(view) {
+  if (currentView) {
+    currentView.remove();
+  }
+  currentView = view;
+
   const app = document.querySelector('#app');
   app.innerHTML = '';
   app.appendChild(view.render().el);

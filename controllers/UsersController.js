@@ -16,19 +16,11 @@ module.exports = {
     UserModel.FindById(req.params.id)
     .populate({
       path: 'tweets',
-      populate: 'user'
+      populate: {
+        path: 'user'
+      }
     })
     .exec()
-    .then(user => {
-      return res.json(user);
-    })
-    .catch(err => {
-      return next(err);
-    });
-  },
-
-  edit: function (req,res) {
-    UserModel.findOne({ _id: req.params.id }).exec()
     .then(user => {
       return res.json(user);
     })

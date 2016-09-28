@@ -8,8 +8,6 @@ tweetRouter.get('/', TweetsController.list);
 
 tweetRouter.get('/:id', TweetsController.show);
 
-tweetRouter.get('/:id/edit', TweetsController.edit);
-
 tweetRouter.post('/', TweetsController.create);
 
 tweetRouter.put('/:id', TweetsController.update);
