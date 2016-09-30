@@ -10,6 +10,7 @@ const Router = Backbone.Router.extend({
   routes: {
     "": "tweets",
     "user/:id": "user",
+    "*whatev": "tweets"
   },
 
   initialize() {
@@ -22,7 +23,7 @@ const Router = Backbone.Router.extend({
     const TweetsCollection = require('./collections/TweetsCollection');
     const TweetListView = require('./views/TweetListView');
     const collection = new TweetsCollection();
-    const view = TweetListView({ collection });
+    const view = new TweetListView({ collection });
     collection.fetch();
 
     setView(view);
@@ -42,14 +43,8 @@ const Router = Backbone.Router.extend({
 });
 
 function setView(view) {
-  if (currentView) {
-    currentView.remove();
-  }
-  currentView = view;
-
   const app = document.querySelector('#app');
-  app.innerHTML = '';
-  app.appendChild(view.render().el);
+  $(app).html(view.render().el);
 }
 
 module.exports = Router;

@@ -6,7 +6,7 @@ const NavBarView = Backbone.View.extend({
       <h1 id="title">
         <a href="/#">Tweeter</a>
       </h1>
-      <a id="logout" href="/logout">
+      <a id="logout" href="/logout" action="/logout" method="POST">
         <div>Logout</div>
       </a>
     </nav>

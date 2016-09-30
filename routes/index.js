@@ -12,7 +12,7 @@ router.get('/', middleware.auth, function(req, res, next) {
     res.redirect('/login');
   } else {
     res.render('index', {
-      bootstrap: JSON.stringify({ userId: req.user._id })
+      bootstrap: JSON.stringify({ username: req.user.username })
     });
   }
 });

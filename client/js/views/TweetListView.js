@@ -1,8 +1,10 @@
 const Backbone = require('backbone');
 const TweetItemView = require('./TweetItemView');
+const TweetModel = require('../models/TweetModel');
 
 const TweetListView = Backbone.View.extend({
-  el: `<div>
+  el: `
+    <div>
       <form action="/tweets" method="POST">
         <div>
           <label for="name">New Tweet</label>
@@ -10,7 +12,7 @@ const TweetListView = Backbone.View.extend({
           <input type="submit" value="Post" />
         </div>
       </form>
-      <ul></ul>
+      <ul id="tweetlist"></ul>
     </div>
   `,
 
@@ -25,22 +27,22 @@ const TweetListView = Backbone.View.extend({
   handleFormSubmit(e) {
     const form = $(e.target);
     const tweet = new TweetModel({
-      body: form.find('input[name="body"]').val(),
+      body: form.find('input[name="body"]').val()
     });
-    tweet.save(null, {
-      success: () => {
-        this.collection.add(tweet);
-        form.find('input[type="text"]').val('');
-        this.render();
-      }
+      tweet.save(null, {
+        success: () => {
+          this.collection.add(tweet);
+          form.find('input[type="text"]').val('');
+          this.render();
+        }
     });
     e.preventDefault();
-  }
+  },
 
   render() {
-    this.$el.html('');
+    this.$('#tweetlist').html('');
     this.collection.each(tweet => {
-      this.el.append(new TweetItemView({model: tweet}).render().el);
+      this.$('#tweetlist').append(new TweetItemView({model: tweet}).render().el);
     });
 
     return this;

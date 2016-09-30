@@ -1,6 +1,6 @@
-cosnt _ = require('lodash');
+const _ = require('lodash');
 const Backbone = require('backbone');
-const TweetListView = require('./views/TweetListView');
+const TweetListView = require('./TweetListView');
 
 const UserView = Backbone.View.extend({
   el: `<div></div>`,
@@ -17,12 +17,9 @@ const UserView = Backbone.View.extend({
   render() {
     this.$el.html('');
     this.$el.html(this.template({ user: this.model }));
-    this.$el.append(
-      new TweetListView({ collection: this.collection })
-        .render().el
-      };
+    this.$el.append(new TweetListView({ collection: this.collection }).render().el)
       return this;
-    }
+  }
 });
 
 module.exports = UserView;

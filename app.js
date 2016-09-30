@@ -47,8 +47,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
 app.use('/tweets', tweets);
+app.use('/users', users);
 app.use('/users', usersTweets);
 app.get('/protected', middleware.auth, function(req, res, next) {
   return res.json('I am a protected resource!');
