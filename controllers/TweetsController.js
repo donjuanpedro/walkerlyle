@@ -25,7 +25,7 @@ module.exports = {
     });
   },
 
-  create: function(req,res) {
+  create: function(req, res) {
     const tweet = new TweetModel({
       body: req.body.body,
       user: req.body.user

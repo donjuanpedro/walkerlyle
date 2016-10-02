@@ -93,7 +93,13 @@ const Router = Backbone.Router.extend({
 });
 
 function setView(view) {
+  if (currentView) {
+    currentView.remove();
+  }
+  currentView = view;
+
   const app = document.querySelector('#app');
+  app.innerHTML = '';
   $(app).html(view.render().el);
 };
 
@@ -177,9 +183,9 @@ const TweetListView = Backbone.View.extend({
   handleFormSubmit(e) {
     const form = $(e.target);
     const tweet = new TweetModel({
-      body: form.find('input[name="body"]').val(),
-      user: form.find('input[name="user"]').val()
+      body: form.find('input[name="body"]').val()
     });
+
     tweet.save(null, {
       success: () => {
         this.collection.add(tweet);

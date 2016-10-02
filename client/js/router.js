@@ -43,7 +43,13 @@ const Router = Backbone.Router.extend({
 });
 
 function setView(view) {
+  if(currentView) {
+    currentView.remove();
+  }
+  currentView = view;
+
   const app = document.querySelector('#app');
+  app.innerHTML = '';
   $(app).html(view.render().el);
 };
 
