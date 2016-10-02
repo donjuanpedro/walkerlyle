@@ -13,17 +13,17 @@ module.exports = {
     });
   },
 
-  // show(req, res, next) {
-  //   TweetModel.FindById(req.params.id)
-  //   .populate('user')
-  //   .exec()
-  //   .then(tweet => {
-  //     return res.json(tweet);
-  //   })
-  //   .catch(err => {
-  //     return next(err);
-  //   });
-  // },
+  show(req, res, next) {
+    TweetModel.FindById(req.params.id)
+    .populate('user')
+    .exec()
+    .then(tweet => {
+      return res.json(tweet);
+    })
+    .catch(err => {
+      return next(err);
+    });
+  },
 
   create: function(req,res) {
     const tweet = new TweetModel({

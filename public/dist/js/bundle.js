@@ -95,7 +95,7 @@ const Router = Backbone.Router.extend({
 function setView(view) {
   const app = document.querySelector('#app');
   $(app).html(view.render().el);
-}
+};
 
 module.exports = Router;
 
@@ -108,9 +108,9 @@ const NavBarView = Backbone.View.extend({
       <h1 id="title">
         <a href="/#">Tweeter</a>
       </h1>
-      <a id="logout" href="/logout" action="/logout" method="POST">
-        <div>Logout</div>
-      </a>
+      <form method="POST" id="logout" action="/logout">
+        <button type="submit">Logout</button>
+      </form>
     </nav>
   `,
 
@@ -128,10 +128,17 @@ const Backbone = require('backbone');
 const TweetItemView = Backbone.View.extend({
   el: `<li></li>`,
 
+  initialize() {
+    this.listenTo(this.model, 'sync', this.render);
+  },
+
   template: _.template(`
-    <div><%= tweet.get('user').escape('username') %></div>
+    <a href ="#user/<%= tweet.get('user').get('_id') %>">
+      <%= tweet.get('user').escape('username') %>
+    </a>
     <div><%= tweet.escape('body') %></div>
     `),
+
   render() {
     this.$el.html(this.template({ tweet: this.model }));
     return this;
@@ -151,7 +158,7 @@ const TweetListView = Backbone.View.extend({
       <form action="/tweets" method="POST">
         <div>
           <label for="name">New Tweet</label>
-          <input type="text" name="name" />
+          <input type="text" name="body" />
           <input type="submit" value="Post" />
         </div>
       </form>
@@ -170,7 +177,8 @@ const TweetListView = Backbone.View.extend({
   handleFormSubmit(e) {
     const form = $(e.target);
     const tweet = new TweetModel({
-      body: form.find('input[name="body"]').val()
+      body: form.find('input[name="body"]').val(),
+      user: form.find('input[name="user"]').val()
     });
     tweet.save(null, {
       success: () => {
@@ -185,9 +193,9 @@ const TweetListView = Backbone.View.extend({
   render() {
     this.$('#tweetlist').html('');
     this.collection.each(tweet => {
-      this.$('#tweetlist').append(new TweetItemView({ model: tweet }).render().el);
+      const tweetView = new TweetItemView({ model: tweet });
+      this.$('#tweetlist').append(tweetView.render().el);
     });
-
     return this;
   }
 });

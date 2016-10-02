@@ -8,7 +8,7 @@ const TweetListView = Backbone.View.extend({
       <form action="/tweets" method="POST">
         <div>
           <label for="name">New Tweet</label>
-          <input type="text" name="name" />
+          <input type="text" name="body" />
           <input type="submit" value="Post" />
         </div>
       </form>
@@ -27,7 +27,8 @@ const TweetListView = Backbone.View.extend({
   handleFormSubmit(e) {
     const form = $(e.target);
     const tweet = new TweetModel({
-      body: form.find('input[name="body"]').val()
+      body: form.find('input[name="body"]').val(),
+      user: form.find('input[name="user"]').val()
     });
       tweet.save(null, {
         success: () => {
@@ -42,9 +43,11 @@ const TweetListView = Backbone.View.extend({
   render() {
     this.$('#tweetlist').html('');
     this.collection.each(tweet => {
-      this.$('#tweetlist').append(new TweetItemView({model: tweet}).render().el);
+      const tweetView = new TweetItemView({ model: tweet });
+      this.$('#tweetlist').append(
+        tweetView.render().el
+      );
     });
-
     return this;
   }
 });

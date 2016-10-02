@@ -6,7 +6,7 @@ const TweetsController = require('../controllers/TweetsController');
 /* GET users listing. */
 router.get('/', TweetsController.list);
 
-// router.get('/:id', TweetsController.show);
+router.get('/:id', TweetsController.show);
 
 router.post('/', TweetsController.create);
 
