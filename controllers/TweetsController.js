@@ -1,4 +1,5 @@
-const TweetModel = require('../models/TweetModel.js');
+const TweetModel = require('../models/TweetModel');
+const UserModel = require('../models/UserModel');
 
 module.exports = {
   list (req, res, next) {
@@ -25,14 +26,27 @@ module.exports = {
     });
   },
 
-  create: function(req, res) {
-    const tweet = new TweetModel({
-      body: req.body.body,
-      user: req.user
-    });
-    tweet.save((err, tweet) => {
-      res.json(tweet);
-    });
+  create: function(req, res, next) {
+    var foundUser;
+    var createdTweet;
+
+    UserModel.findById(req.user).exec()
+      .then( user => {
+        foundUser = user;
+        return new TweetModel({
+          body: req.body.body,
+          user: user
+        }).save()
+      })
+      .then(tweet => {
+        createdTweet = tweet;
+        foundUser.tweets.push(tweet);
+        return foundUser.save()
+      })
+      .then(() => {
+        return res.json(createdTweet);
+      })
+      .catch(next);
   }
 
   // update: function(req, res, next) {
