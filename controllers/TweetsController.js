@@ -28,7 +28,7 @@ module.exports = {
   create: function(req, res) {
     const tweet = new TweetModel({
       body: req.body.body,
-      user: req.body.user
+      user: req.user
     });
     tweet.save((err, tweet) => {
       res.json(tweet);

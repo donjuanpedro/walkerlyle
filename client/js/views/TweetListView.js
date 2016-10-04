@@ -43,11 +43,9 @@ const TweetListView = Backbone.View.extend({
 
   render() {
     this.$('#tweetlist').html('');
-    this.collection.each(tweet => {
+    this.collection.each((tweet) => {
       const tweetView = new TweetItemView({ model: tweet });
-      this.$('#tweetlist').append(
-        tweetView.render().el
-      );
+      this.$('#tweetlist').append(tweetView.render().el);
     });
     return this;
   }

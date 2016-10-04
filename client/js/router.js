@@ -51,8 +51,7 @@ function setView(view) {
 
   const app = document.querySelector('#app');
   app.innerHTML = '';
-  app.appendChild(view.render().el);
-  // $(app).html(view.render().el);
+  $(app).html(view.render().el);
 };
 
 module.exports = Router;
