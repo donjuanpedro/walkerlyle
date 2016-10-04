@@ -1,7 +1,7 @@
 const TweetModel = require('../models/TweetModel.js');
 
 module.exports = {
-  list (req,res,next) {
+  list (req, res, next) {
     TweetModel.find()
     .populate('user')
     .exec()

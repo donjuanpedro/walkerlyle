@@ -55,6 +55,7 @@ const Backbone = require('backbone');
 const UserModel = require('./models/UserModel');
 const UserView = require('./views/UserView');
 const NavBarView = require('./views/NavBarView');
+const TweetsCollection = require('./collections/TweetsCollection');
 
 let currentView;
 
@@ -62,7 +63,7 @@ const Router = Backbone.Router.extend({
   routes: {
     "": "tweets",
     "user/:id": "user",
-    "*whatev": "tweets"
+    "*tweets": "tweets"
   },
 
   initialize() {
@@ -70,7 +71,6 @@ const Router = Backbone.Router.extend({
   },
 
   tweets() {
-    const TweetsCollection = require('./collections/TweetsCollection');
     const TweetListView = require('./views/TweetListView');
     const collection = new TweetsCollection();
     const view = new TweetListView({ collection });
@@ -100,7 +100,8 @@ function setView(view) {
 
   const app = document.querySelector('#app');
   app.innerHTML = '';
-  $(app).html(view.render().el);
+  app.appendChild(view.render().el);
+  // $(app).html(view.render().el);
 };
 
 module.exports = Router;
@@ -134,16 +135,16 @@ const Backbone = require('backbone');
 const TweetItemView = Backbone.View.extend({
   el: `<li></li>`,
 
-  initialize() {
-    this.listenTo(this.model, 'sync', this.render);
-  },
-
   template: _.template(`
     <a href ="#user/<%= tweet.get('user').get('_id') %>">
       <%= tweet.get('user').escape('username') %>
     </a>
     <div><%= tweet.escape('body') %></div>
-    `),
+  `),
+
+  initialize() {
+    this.listenTo(this.model, 'sync', this.render);
+  },
 
   render() {
     this.$el.html(this.template({ tweet: this.model }));
@@ -183,7 +184,8 @@ const TweetListView = Backbone.View.extend({
   handleFormSubmit(e) {
     const form = $(e.target);
     const tweet = new TweetModel({
-      body: form.find('input[name="body"]').val()
+      body: form.find('input[name="body"]').val(),
+      user: form.find('input[name="user"]').val()
     });
 
     tweet.save(null, {

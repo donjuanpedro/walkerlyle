@@ -2,6 +2,8 @@ const Backbone = require('backbone');
 const UserModel = require('./models/UserModel');
 const UserView = require('./views/UserView');
 const NavBarView = require('./views/NavBarView');
+const TweetsCollection = require('./collections/TweetsCollection');
+
 
 
 let currentView;
@@ -9,8 +11,8 @@ let currentView;
 const Router = Backbone.Router.extend({
   routes: {
     "": "tweets",
-    "user/:id": "user",
-    "*whatev": "tweets"
+    "user/:id" : "user",
+    "*tweets" : "tweets",
   },
 
   initialize() {
@@ -20,7 +22,6 @@ const Router = Backbone.Router.extend({
   },
 
   tweets() {
-    const TweetsCollection = require('./collections/TweetsCollection');
     const TweetListView = require('./views/TweetListView');
     const collection = new TweetsCollection();
     const view = new TweetListView({ collection });
@@ -50,7 +51,8 @@ function setView(view) {
 
   const app = document.querySelector('#app');
   app.innerHTML = '';
-  $(app).html(view.render().el);
+  app.appendChild(view.render().el);
+  // $(app).html(view.render().el);
 };
 
 module.exports = Router;

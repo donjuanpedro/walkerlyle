@@ -28,6 +28,7 @@ const TweetListView = Backbone.View.extend({
     const form = $(e.target);
     const tweet = new TweetModel({
       body: form.find('input[name="body"]').val(),
+      user: form.find('input[name="user"]').val(),
     });
 
       tweet.save(null, {
