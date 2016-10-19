@@ -15,6 +15,9 @@ const NavBarView = Backbone.View.extend({
         <li>
           <a href="http://donjuanpedro.github.io/" target="_blank">Projects </a>
         </li>
+        <li>
+          <a href="http://southhousetunes.com/" target="_blank">Blog </a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>

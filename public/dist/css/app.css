@@ -2,6 +2,10 @@ body {
   font-family: 'Oswald', sans-serif;
   font-weight: normal; }
 
+#aboutMe {
+  text-align: left;
+  float: left; }
+
 #title > a {
   text-decoration: none;
   color: black;
@@ -9,7 +13,8 @@ body {
   font-weight: normal; }
 
 #app {
-  padding-top: 20px; }
+  padding-top: 20px;
+  float: left; }
 
 #commentInvite label {
   font-family: 'Noto Sans', sans-serif; }
