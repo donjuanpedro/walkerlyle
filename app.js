@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const path = require('path');
+// const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -19,7 +20,7 @@ const usersTweets = require('./routes/users_tweets');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 // You need to connect to your MongoDB here
-mongoose.connect(process.env.MONGDB_URI || 'mongodb://localhost/walkerlyle');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/walkerlyle');
 
 const app = express();
 
@@ -37,6 +38,8 @@ app.use(flash());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// uncomment after placing your favicon in /public
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
