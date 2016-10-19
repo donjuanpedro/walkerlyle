@@ -20,7 +20,7 @@ const usersTweets = require('./routes/users_tweets');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 // You need to connect to your MongoDB here
-mongoose.connect('mongodb://localhost/walkerlyle');
+mongoose.connect(process.env.MONGDB_URI || 'mongodb://localhost/walkerlyle');
 
 const app = express();
 
