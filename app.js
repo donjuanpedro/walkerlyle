@@ -20,7 +20,7 @@ const usersTweets = require('./routes/users_tweets');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 // You need to connect to your MongoDB here
-mongoose.connect('mongodb://localhost/tweeter-starter-app');
+mongoose.connect('mongodb://localhost/walkerlyle');
 
 const app = express();
 
@@ -39,7 +39,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

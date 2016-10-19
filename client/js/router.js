@@ -3,7 +3,7 @@ const UserModel = require('./models/UserModel');
 const UserView = require('./views/UserView');
 const NavBarView = require('./views/NavBarView');
 const TweetsCollection = require('./collections/TweetsCollection');
-
+const AboutView = require('./views/AboutView');
 
 
 let currentView;
@@ -12,12 +12,15 @@ const Router = Backbone.Router.extend({
   routes: {
     "": "tweets",
     "user/:id" : "user",
-    "*tweets" : "tweets",
+    "*tweets" : "tweets"
   },
 
   initialize() {
     $('#nav').html(
       new NavBarView().render().el
+    );
+    $('#aboutMe').html(
+      new AboutView().render().el
     );
   },
 

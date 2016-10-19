@@ -8,7 +8,7 @@ window.$ = window.jQuery = $;
 const router = new Router();
 Backbone.history.start();
 
-},{"./router":5,"backbone":10,"jquery":11}],2:[function(require,module,exports){
+},{"./router":5,"backbone":11,"jquery":12}],2:[function(require,module,exports){
 const Backbone = require('backbone');
 const TweetModel = require('../models/TweetModel');
 
@@ -19,7 +19,7 @@ const TweetsCollection = Backbone.Collection.extend({
 
 module.exports = TweetsCollection;
 
-},{"../models/TweetModel":3,"backbone":10}],3:[function(require,module,exports){
+},{"../models/TweetModel":3,"backbone":11}],3:[function(require,module,exports){
 const Backbone = require('backbone');
 const UserModel = require('./UserModel');
 
@@ -36,7 +36,7 @@ const TweetModel = Backbone.Model.extend({
 
 module.exports = TweetModel;
 
-},{"./UserModel":4,"backbone":10}],4:[function(require,module,exports){
+},{"./UserModel":4,"backbone":11}],4:[function(require,module,exports){
 const Backbone = require('backbone');
 
 const UserModel = Backbone.Model.extend({
@@ -50,12 +50,13 @@ const UserModel = Backbone.Model.extend({
 
 module.exports = UserModel;
 
-},{"backbone":10}],5:[function(require,module,exports){
+},{"backbone":11}],5:[function(require,module,exports){
 const Backbone = require('backbone');
 const UserModel = require('./models/UserModel');
 const UserView = require('./views/UserView');
 const NavBarView = require('./views/NavBarView');
 const TweetsCollection = require('./collections/TweetsCollection');
+const AboutView = require('./views/AboutView');
 
 let currentView;
 
@@ -68,6 +69,7 @@ const Router = Backbone.Router.extend({
 
   initialize() {
     $('#nav').html(new NavBarView().render().el);
+    $('#aboutMe').html(new AboutView().render().el);
   },
 
   tweets() {
@@ -105,19 +107,63 @@ function setView(view) {
 
 module.exports = Router;
 
-},{"./collections/TweetsCollection":2,"./models/UserModel":4,"./views/NavBarView":6,"./views/TweetListView":8,"./views/UserView":9,"backbone":10}],6:[function(require,module,exports){
+},{"./collections/TweetsCollection":2,"./models/UserModel":4,"./views/AboutView":6,"./views/NavBarView":7,"./views/TweetListView":9,"./views/UserView":10,"backbone":11}],6:[function(require,module,exports){
+const Backbone = require('backbone');
+
+const AboutView = Backbone.View.extend({
+  el: `
+  <div class="container">
+    <div class="row">
+      <div class="col-xs=12">
+        <h1>About Me</h1>
+        <p> I'm a developer in Austin, TX. </p>
+      </div>
+    </div>
+  </div>
+  `,
+
+  render() {
+    return this;
+  }
+});
+
+module.exports = AboutView;
+
+},{"backbone":11}],7:[function(require,module,exports){
 const Backbone = require('backbone');
 
 const NavBarView = Backbone.View.extend({
   el: `
-    <nav>
-      <h1 id="title">
-        <a href="/#">Tweeter</a>
-      </h1>
-      <form method="POST" id="logout" action="/logout">
-        <button type="submit">Logout</button>
-      </form>
-    </nav>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header" id="title">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand navBarLinks" href="#">Walker Lyle</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a class="navBarLinks" href="#">About </a></li>
+        <li>
+          <a href="http://donjuanpedro.github.io/" target="_blank">Projects </a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <form class="navbar-form navbar-right" method="POST" id="logout" action="/logout">
+            <button type="submit" class="btn btn-default"> Logout</button>
+          </form>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
   `,
 
   render() {
@@ -127,7 +173,7 @@ const NavBarView = Backbone.View.extend({
 
 module.exports = NavBarView;
 
-},{"backbone":10}],7:[function(require,module,exports){
+},{"backbone":11}],8:[function(require,module,exports){
 const _ = require('lodash');
 const Backbone = require('backbone');
 
@@ -153,7 +199,7 @@ const TweetItemView = Backbone.View.extend({
 
 module.exports = TweetItemView;
 
-},{"backbone":10,"lodash":12}],8:[function(require,module,exports){
+},{"backbone":11,"lodash":13}],9:[function(require,module,exports){
 const Backbone = require('backbone');
 const TweetItemView = require('./TweetItemView');
 const TweetModel = require('../models/TweetModel');
@@ -163,7 +209,7 @@ const TweetListView = Backbone.View.extend({
     <div>
       <form action="/tweets" method="POST">
         <div>
-          <label for="name">New Tweet</label>
+          <label for="name">Leave a comment or something</label>
           <input type="text" name="body" />
           <input type="submit" value="Post" />
         </div>
@@ -209,7 +255,7 @@ const TweetListView = Backbone.View.extend({
 
 module.exports = TweetListView;
 
-},{"../models/TweetModel":3,"./TweetItemView":7,"backbone":10}],9:[function(require,module,exports){
+},{"../models/TweetModel":3,"./TweetItemView":8,"backbone":11}],10:[function(require,module,exports){
 const _ = require('lodash');
 const Backbone = require('backbone');
 const TweetListView = require('./TweetListView');
@@ -236,7 +282,7 @@ const UserView = Backbone.View.extend({
 
 module.exports = UserView;
 
-},{"./TweetListView":8,"backbone":10,"lodash":12}],10:[function(require,module,exports){
+},{"./TweetListView":9,"backbone":11,"lodash":13}],11:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.3.3
 
@@ -2161,7 +2207,7 @@ module.exports = UserView;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"jquery":11,"underscore":13}],11:[function(require,module,exports){
+},{"jquery":12,"underscore":14}],12:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.1.1
  * https://jquery.com/
@@ -12383,7 +12429,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -29283,7 +29329,7 @@ return jQuery;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
