@@ -208,7 +208,7 @@ const TweetListView = Backbone.View.extend({
   el: `
     <div>
       <form action="/tweets" method="POST">
-        <div>
+        <div id="commentInvite">
           <label for="name">Leave a comment or something</label>
           <input type="text" name="body" />
           <input type="submit" value="Post" />
